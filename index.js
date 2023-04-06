@@ -6,7 +6,9 @@ const route = require('./routes/index');
 // Using middleware to sent browser request to route folder to handle it
 app.use('/' , route);  
 
-
+// setting up my view engine
+app.set('view engine' , 'ejs');
+app.set('views' , './views');
 
 
 
