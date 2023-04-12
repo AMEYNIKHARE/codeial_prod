@@ -7,6 +7,13 @@ const app = express();
 const expressLayouts = require('express-ejs-layouts');
 app.use(expressLayouts);
 
+
+// telling server that we are using static file and all are in assets folder
+app.use(express.static('./assets'));
+// to attach assets to individual redered file.
+app.set('layout extractStyles' , true);
+app.set('layout extractScripts' , true);
+
 // we are using separate route folder to handle browser requets (url) hence imported it.
 const route = require('./routes/index');
 // Using middleware to sent browser request to route folder to handle it
