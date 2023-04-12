@@ -1,7 +1,7 @@
 const express = require('express');
 const port = 8000;
 const app = express();
-
+const db = require('./config/mongoose');
 // below two lines is to tell server that we are using 
 // layouts to render pages using express-ejs-layouts library
 const expressLayouts = require('express-ejs-layouts');
