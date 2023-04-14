@@ -2,12 +2,16 @@ const express = require('express');
 const port = 8000;
 const app = express();
 const db = require('./config/mongoose');
+const cookieParser = require('cookie-parser');
+
+// set-up cookie parser
+app.use(cookieParser());
 // below two lines is to tell server that we are using 
 // layouts to render pages using express-ejs-layouts library
 const expressLayouts = require('express-ejs-layouts');
 app.use(expressLayouts);
 
-
+app.use(express.urlencoded());
 // telling server that we are using static file and all are in assets folder
 app.use(express.static('./assets'));
 // to attach assets to individual redered file.

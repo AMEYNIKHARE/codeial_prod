@@ -1,0 +1,22 @@
+<div class="d-flex justify-content-center" >
+    <form style="width: 50%;" action="/user/create-account" method="post">
+        <div class="mb-3">
+            <label for="SignUpUserName" class="form-label">Name</label>
+            <input type="text" name="name" class="form-control" id="SignUpUserName" required>
+        </div>
+        <div class="mb-3">
+            <label for="SignUpUserEmail" class="form-label">Email address</label>
+            <input type="email" name="email" class="form-control" id="SignUpUserEmail" aria-describedby="emailHelp"
+                required>
+        </div>
+        <div class="mb-3">
+            <label for="SignUpUserPassword" class="form-label">Password</label>
+            <input type="password" name="password" class="form-control" id="SignUpUserPassword" required>
+        </div>
+        <div class="mb-3">
+            <label for="SignUpUserConfirmPassword" class="form-label">Confirm Password</label>
+            <input type="password" name="confirm_password" class="form-control" id="SignUpUserConfirmPassword" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Sign-Up</button>
+    </form>
+</div>
