@@ -16,7 +16,9 @@ app.use(cookieParser());
 const expressLayouts = require('express-ejs-layouts');
 app.use(expressLayouts);
 
+// middleware use to get the form data in req.body as an object
 app.use(express.urlencoded());
+
 // telling server that we are using static file and all are in assets folder
 app.use(express.static('./assets'));
 // to attach assets to individual redered file.
