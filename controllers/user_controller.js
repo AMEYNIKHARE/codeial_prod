@@ -15,9 +15,21 @@ module.exports.signUp = function (req, res) {
     return res.render('signUp');
 }
 
+// To sign out user (remove session cookie basically from browser)
+module.exports.signOut = function (req, res) {
+    // res.clearCookie('codeial');
+    req.logout((err) => {
+        if (err) {
+            console.log('error');
+            return;
+        }
+        return res.redirect('/');
+    });
+}
+
 // Handle  user account creation
 module.exports.create_account = function (req, res) {
-    
+
     if (req.body.password != req.body.confirm_password) {
         console.log('Password not Match!!! Enter same password in password and confirm password fields');
         return res.redirect('back');

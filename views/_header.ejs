@@ -15,17 +15,28 @@
                 </li>
             </ul>
 
-            <div class="d-flex justify-content-end">
-                <a href="/user/sign-in">
-                    <button type="button" class="btn btn-primary mx-2">
-                        Login
-                    </button>
-                </a>
-                <a href="/user/sign-up">
-                    <button type="button" class="btn btn-primary mx-2">
-                        Sign Up
-                    </button>
-                </a>
+            <div class="d-flex justify-content-end align-items-center">
+                <%if(locals.user){%>
+                    <div><strong><%=user.name%></strong></div>
+                    <a href="/user/sign-out">
+                        <button type="button" class="btn btn-primary mx-2">
+                            Sign Out
+                        </button>
+                    </a>
+                <%}else{%>
+                    <a href="/user/sign-in">
+                            <button type="button" class="btn btn-primary mx-2">
+                                Login
+                            </button>
+                    </a>
+                    <a href="/user/sign-up">
+                            <button type="button" class="btn btn-primary mx-2">
+                                Sign Up
+                            </button>
+                    </a>
+                <%}%>
+
+
             </div>
         </div>
     </div>
