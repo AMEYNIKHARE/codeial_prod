@@ -19,8 +19,8 @@ module.exports.signUp = function (req, res) {
 module.exports.signOut = function (req, res) {
     // res.clearCookie('codeial');
     req.logout((err) => {
-        if (err) {
-            console.log('error');
+        if (err) { 
+            console.log('error in logout ' , err);
             return;
         }
         return res.redirect('/');
@@ -44,7 +44,7 @@ module.exports.create_account = function (req, res) {
             const newUser = User.create(req.body);
             newUser.then((userCreated) => {
                 console.log('User account created successfully. You can login now!!!');
-                return res.render('signIn');
+                return res.redirect('/user/sign-in');
             }).catch((error) => {
                 console.log('error in user creation in db');
                 return;

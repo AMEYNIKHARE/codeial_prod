@@ -34,7 +34,7 @@ passport.use(new LocalStrategy(
 passport.serializeUser(function (user, done) {
     // console.log(user.id);
     // console.log(user._id);
-    done(null, user.id);
+    return done(null, user.id);
 });
 
 // deserializing the user frm the key in the cookie

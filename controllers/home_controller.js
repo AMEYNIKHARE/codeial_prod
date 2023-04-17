@@ -1,4 +1,4 @@
-// remders home page
+// renders home page
 module.exports.home = function(req, res){
     // console.log(req.cookies);
     // res.cookie('UserID' , 'ANIKHARE');

@@ -3,7 +3,7 @@ const route = express.Router();
 const User_controller = require('../controllers/user_controller');
 const passport = require('passport'); // require passport to authenticate using passport
 
-route.get('/', User_controller.profile);
+route.get('/', passport.checkAuthentication, User_controller.profile);
 route.get('/profile', passport.checkAuthentication, User_controller.profile);
 route.get('/sign-in', passport.checkAlreadyLogin, User_controller.signIn);
 route.get('/sign-up', passport.checkAlreadyLogin, User_controller.signUp);
