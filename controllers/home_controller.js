@@ -5,3 +5,7 @@ module.exports.home = function(req, res){
     // res.cookie('Name' , 'Amey Nikhare');
     return res.render('home');
 }
+
+module.exports.default = function(req, res){
+    return res.render('default');
+}

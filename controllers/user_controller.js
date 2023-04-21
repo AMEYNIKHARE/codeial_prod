@@ -58,5 +58,11 @@ module.exports.create_account = function (req, res) {
 
 // Handle  user authentication
 module.exports.create_session = function (req, res) {
-    return res.redirect('/');
+    return res.redirect('/home');
+}
+
+
+// Handle  user account creation
+module.exports.create_post = function (req, res) {
+    res.redirect('back');
 }
