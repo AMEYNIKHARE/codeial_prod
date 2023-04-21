@@ -39,7 +39,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        maxAge: (1000 * 60 * 1)
+        maxAge: (1000 * 60 * 5)
     },
     store: new MongoStore(
         {

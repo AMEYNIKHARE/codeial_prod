@@ -6,7 +6,24 @@
     Welcome <%=user.name%>
 </h4>
 
-<form action="/post/create-post" id="post-feed" method="post">
-    <textarea name="content" cols="30" rows="3" placeholder="Type here..."></textarea>
-    <button type="submit">Post</button>
-</form>
+<section id="feed-posts">
+    <form action="/post/create-post" id="new-post-form" method="post">
+        <textarea name="content" cols="30" rows="3" placeholder="Type here..."></textarea>
+        <button type="submit">Post</button>
+    </form>
+
+    <div id="post-list-container">
+        <ul>
+            <%for (let i of posts){%>
+                <li>
+                    <p>
+                       <strong><%=i.content%></strong> 
+                        <small>
+                            By <%=i.user.name%>
+                        </small>
+                    </p>
+                </li>
+            <%}%>
+        </ul>
+    </div>
+</section>

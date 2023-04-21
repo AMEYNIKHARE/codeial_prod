@@ -9,13 +9,13 @@ const postSchema = new mongoose.Schema({
 
     user : {
         type : mongoose.Schema.Types.ObjectId,
-        ref : 'user'
+        ref : 'userData'
     }
 
 },{
     timestamps : true
 });
 
-const post = mongoose.model('Post' , postSchema);
+const post = mongoose.model('post' , postSchema);
 
 module.exports = post;
