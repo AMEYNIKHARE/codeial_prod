@@ -8,22 +8,43 @@
 
 <section id="feed-posts">
     <form action="/post/create-post" id="new-post-form" method="post">
-        <textarea name="content" cols="30" rows="3" placeholder="Type here..."></textarea>
+        <textarea name="content" cols="30" rows="3" placeholder="Type here..." required></textarea>
         <button type="submit">Post</button>
     </form>
 
     <div id="post-list-container">
         <ul>
-            <%for (let i of posts){%>
+            <%for (let post of posts){%>
                 <li>
                     <p>
-                       <strong><%=i.content%></strong> 
+                        <strong>
+                            <%=post.content%>
+                        </strong>
                         <small>
-                            By <%=i.user.name%>
+                            By <%=post.user.name%>
                         </small>
+                        <ul>
+                            <%for (let comm of post.comments){%>
+                                <li style="font-family: Arial, Helvetica, sans-serif;">
+                                    <%=comm.content%> 
+                                    &emsp;&emsp;&emsp;&emsp; 
+                                    <small> by <%=comm.user.name%> </small>
+                                </li>
+                            <%}%>
+                        </ul>
+                        
                     </p>
+                    <div class="comment-input-container">
+                        <form action="/comment/create-comment" method="post">
+                            <input type="text" name="content" placeholder="Comment here..." required>
+                            <input type="hidden" name="post" value=<%=post._id%> >
+                            <button type="submit">Add Comment</button>
+                        </form>
+                    </div>
+
                 </li>
-            <%}%>
+                <br>
+                <%}%>
         </ul>
     </div>
 </section>

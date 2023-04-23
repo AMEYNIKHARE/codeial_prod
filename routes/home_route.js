@@ -7,5 +7,6 @@ routes.get('/home', passport.checkAuthentication, controller.home);
 routes.get('/', controller.default);
 routes.use('/user', require('./user_route'));
 routes.use('/post', require('./post_route'));
+routes.use('/comment', require('./comment_route'));
 
 module.exports = routes;
