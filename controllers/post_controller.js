@@ -1,4 +1,5 @@
 const Post = require('../model/post');
+const Comment = require('../model/comment');
 
 module.exports.create_post = function(req, res){
     const newPost = Post.create({
@@ -15,4 +16,25 @@ module.exports.create_post = function(req, res){
             return res.redirect('back');
         }
     });
-}
+};
+
+module.exports.delete_post = function(req, res){
+    
+    Post.findById(req.params.id).exec().then((data)=>{
+        if(data){
+            Post.findByIdAndRemove(req.params.id).exec();
+            Comment.deleteMany({post : req.params.id}).exec();
+            return res.redirect('back');
+        }
+        else{
+            return res.redirect('back');
+        }
+    }).catch((err=>{
+        if(err){
+            console.log('error in finding post while deleting it ', err)
+            return res.redirect('back');
+        }
+    }));
+
+ 
+};

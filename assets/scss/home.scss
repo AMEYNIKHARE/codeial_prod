@@ -1,0 +1,17 @@
+#home-container{
+    display: flex;
+
+       #post-container{
+        width: 70%;
+        padding: 15px;
+    }
+
+    #friend-container{
+        width: 30%;
+        padding: 15px;
+    }
+}
+
+h2{
+    text-align: center; 
+}

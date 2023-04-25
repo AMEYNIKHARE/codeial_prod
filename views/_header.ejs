@@ -11,13 +11,13 @@
                     <a class="nav-link active" aria-current="page" href="/home">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="/user/profile">Profile</a>
+                    <a class="nav-link active" href="/user/">Profile</a>
                 </li>
             </ul>
 
             <div class="d-flex justify-content-end align-items-center">
                 <%if(locals.user){%>
-                    <div><strong><%=user.name%></strong></div>
+                    <div><strong><%=locals.user.name%></strong></div>
                     <a href="/user/sign-out">
                         <button type="button" class="btn btn-primary mx-2">
                             Sign Out

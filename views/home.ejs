@@ -1,50 +1,80 @@
 <link rel="stylesheet" href="/css/home.css">
-<h1>
-    User Home View / Codeial
-</h1>
-<h4>
-    Welcome <%=user.name%>
-</h4>
 
-<section id="feed-posts">
-    <form action="/post/create-post" id="new-post-form" method="post">
-        <textarea name="content" cols="30" rows="3" placeholder="Type here..." required></textarea>
-        <button type="submit">Post</button>
-    </form>
+<h2>
+    Welcome <%=locals.user.name%>
+</h2>
 
-    <div id="post-list-container">
-        <ul>
-            <%for (let post of posts){%>
-                <li>
+<din id="home-container">
+
+    <section id="post-container">
+        <form action="/post/create-post" id="new-post-form" method="post">
+            <textarea name="content" cols="30" rows="3" placeholder="Type here..." required></textarea>
+            <button type="submit">Post</button>
+        </form>
+
+        <div id="post-list-container">
+            <ul>
+                <%for (let post of posts){%>
+                    <li>
+                        <p>
+                            <strong>
+                                <%=post.content%>
+                            </strong>
+                            <small>
+                                By <%=post.user.name%>
+                            </small>
+                            &emsp;&emsp;
+                            <%if (locals.user && locals.user.id==post.user.id){%>
+                                <small>
+                                    <a href="/post/delete/<%=post.id%>"><button>Delete</button></a>
+                                </small>
+                                <%}%>
+
+                                    <ul>
+                                        <%for (let comm of post.comments){%>
+                                            <li style="font-family: Arial, Helvetica, sans-serif;">
+                                                <%=comm.content%>
+                                                    &emsp;&emsp;&emsp;&emsp;
+                                                    <small> by <%=comm.user.name%> </small>
+                                                    <%if (locals.user && locals.user.id==comm.user.id){%>
+                                                        <small>
+                                                            <a
+                                                                href="/comment/delete/<%=comm.id%>"><button>Delete</button></a>
+                                                        </small>
+                                                        <%}%>
+                                            </li>
+                                            <%}%>
+                                    </ul>
+
+                        </p>
+                        <div class="comment-input-container">
+                            <form action="/comment/create-comment" method="post">
+                                <input type="text" name="content" placeholder="Comment here..." required>
+                                <input type="hidden" name="post" value=<%=post._id%> >
+                                <button type="submit">Add Comment</button>
+                            </form>
+                        </div>
+
+                    </li>
+                    <br>
+                    <%}%>
+            </ul>
+        </div>
+    </section>
+
+
+    <section id="friend-container">
+        <h4>Friends</h4>
+        <%for(let user of users){%>
+            <%if(user.id !=locals.user.id){%>
+                <a href="/user/profile/<%=user.id%>">
                     <p>
-                        <strong>
-                            <%=post.content%>
-                        </strong>
-                        <small>
-                            By <%=post.user.name%>
-                        </small>
-                        <ul>
-                            <%for (let comm of post.comments){%>
-                                <li style="font-family: Arial, Helvetica, sans-serif;">
-                                    <%=comm.content%> 
-                                    &emsp;&emsp;&emsp;&emsp; 
-                                    <small> by <%=comm.user.name%> </small>
-                                </li>
-                            <%}%>
-                        </ul>
-                        
+                        <%=user.name%>
                     </p>
-                    <div class="comment-input-container">
-                        <form action="/comment/create-comment" method="post">
-                            <input type="text" name="content" placeholder="Comment here..." required>
-                            <input type="hidden" name="post" value=<%=post._id%> >
-                            <button type="submit">Add Comment</button>
-                        </form>
-                    </div>
-
-                </li>
-                <br>
+                </a>
                 <%}%>
-        </ul>
-    </div>
-</section>
+
+                    <%}%>
+    </section>
+
+</din>

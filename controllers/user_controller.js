@@ -1,8 +1,30 @@
 const User = require('../model/user');
 
 // renders profile page
+
+module.exports.Myprofile = function (req, res) {
+
+    const user = User.findById(req.user.id).exec();
+
+    user.then((data) => {
+        return res.render('profile', { singleUser: data });
+    }).catch((err) => {
+        console.log('error in fecthing user details from db ', err);
+        return res.redirect('back');
+    });
+}
+
+
 module.exports.profile = function (req, res) {
-    return res.render('profile');
+
+    const user = User.findById(req.params.id).exec();
+
+    user.then((data) => {
+        return res.render('profile', { singleUser: data });
+    }).catch((err) => {
+        console.log('error in fecthing user details from db ', err);
+        return res.redirect('back');
+    });
 }
 
 // renders sign in page
@@ -19,8 +41,8 @@ module.exports.signUp = function (req, res) {
 module.exports.signOut = function (req, res) {
     // res.clearCookie('codeial');
     req.logout((err) => {
-        if (err) { 
-            console.log('error in logout ' , err);
+        if (err) {
+            console.log('error in logout ', err);
             return;
         }
         return res.redirect('/');
@@ -61,8 +83,21 @@ module.exports.create_session = function (req, res) {
     return res.redirect('/home');
 }
 
+// Update user details in database
+module.exports.update = function (req, res) {
+    if (req.params.id == req.user.id) {
+        User.findByIdAndUpdate(req.params.id, req.body).exec();
+        return res.redirect('back');
+    }
+    else {
+        const user = User.findById(req.params.id).exec();
 
-// Handle  user account creation
-module.exports.create_post = function (req, res) {
-    res.redirect('back');
-}
+        user.then((data) => {
+            return res.status(401).send(`You are not Authorized to change details of ${data.name}`);
+        }).catch((err) => {
+            console.log('error in fecthing user details from db ', err);
+            return res.redirect('back');
+        });
+        
+    }
+};

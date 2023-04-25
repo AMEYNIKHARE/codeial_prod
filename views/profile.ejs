@@ -2,6 +2,22 @@
 <h1>
     Profile View
 </h1>
+
 <p>
-    <%= user.name%>
+    <%=singleUser.name%>
 </p>
+<p>
+    <%=singleUser.email%>
+</p>
+
+<%if (singleUser.id==locals.user.id){%>
+    <form action="/user/update/<%=singleUser.id%>" method="post">
+        <label for="SignUpUserName">Name</label>
+        <input type="text" name="name" id="SignUpUserName" value="<%=singleUser.name%>" required>
+
+        <label for="SignUpUserEmail">Email</label>
+        <input type="email" name="email" id="SignUpUserEmail" value=<%=singleUser.email%> required>
+
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+<%}%>

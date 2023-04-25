@@ -1,4 +1,5 @@
 const Post = require('../model/post');
+const User = require('../model/user');
 
 // renders home page
 module.exports.home = function(req, res){
@@ -9,7 +10,13 @@ module.exports.home = function(req, res){
     const allPost = Post.find({}).populate('user').populate({path : 'comments', populate : {path : 'user'}}).exec();
 
     allPost.then((data)=>{
-        return res.render('home' , {posts : data});
+        const allUser = User.find({}).exec().then((all_users)=>{
+            return res.render('home' , {posts : data, users : all_users});
+        }).catch((error)=>{
+            console.log('error in fetching all users ', error);
+            return res.render('home' , {posts : data});
+        });
+        
     }).catch((err)=>{
         console.log('error in rendering home page ' , err);
         return;
