@@ -6,6 +6,10 @@ const cookieParser = require('cookie-parser');
 // set-up cookie parser
 app.use(cookieParser());
 
+// Flash messages
+const flash = require('connect-flash');
+const customMware = require('./config/customMware');
+
 // to use session and passport for authentication
 const session = require('express-session');
 const passport = require('passport');
@@ -54,6 +58,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.setAuthenticatedUser);
+
+app.use(flash());
+app.use(customMware.setFlash);
 
 // we are using separate route folder to handle browser requets (url) hence imported it.
 const route = require('./routes/home_route');

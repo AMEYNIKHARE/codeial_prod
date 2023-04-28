@@ -14,20 +14,21 @@ module.exports.create_comment = function (req, res) {
             comment.then((newComment) => {
                 data.comments.push(newComment);
                 data.save();
+                req.flash('success' , 'Comment added successfully');
                 return res.redirect('back');
             }).catch((error) => {
                 if (error) {
-                    console.log('error in creating comment ', err);
+                    req.flash('error' , error);
                     return res.redirect('back');
                 }
             });
         }
         else {
-            console.log('Invalid Post');
+            req.flash('error' , 'Invalid Post');
             return res.redirect('back');
         }
     }).catch((err) => {
-        console.log('error in finding post while adding comment ', err);
+        req.flash('error' , err);
         return res.redirect('back');
     });
 
@@ -41,29 +42,33 @@ module.exports.delete_comment = function (req, res) {
         if (data) {
             let postId = data.post;
             Comment.findByIdAndRemove(req.params.id).exec();
+            req.flash('success' , 'Comment deleted successfully');
             // remove comment from post array
             Post.findById(postId).exec().then((newPost) => {
                 if (newPost) {
                     Post.findByIdAndUpdate(postId, { $pull: { comments: req.params.id } }).exec();
+                    req.flash('success' , 'Comment removed from post');
                     return res.redirect('back');
                 }
                 else {
+                    req.flash('error' , 'Error in removing comment from post');
                     return res.redirect('back');
                 }
             }).catch((error) => {
                 if (error) {
-                    console.log('error in finding post while deleting comments frompost aaray ', error)
+                    req.flash('error' , error);
                     return res.redirect('back');
                 }
             });
 
         }
         else {
+            req.flash('error' , 'Comment Not Found');
             return res.redirect('back');
         }
     }).catch((err) => {
         if (err) {
-            console.log('error in finding comment while deleting it ', err)
+            req.flash('error' , err);
             return res.redirect('back');
         }
     });

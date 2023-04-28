@@ -13,11 +13,13 @@ module.exports.home = function(req, res){
         const allUser = User.find({}).exec().then((all_users)=>{
             return res.render('home' , {posts : data, users : all_users});
         }).catch((error)=>{
+            req.flash('error' , error);
             console.log('error in fetching all users ', error);
             return res.render('home' , {posts : data});
         });
         
     }).catch((err)=>{
+        req.flash('error' , err);
         console.log('error in rendering home page ' , err);
         return;
     });
