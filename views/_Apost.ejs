@@ -1,0 +1,31 @@
+<li id="post-<%=post.id%>" >
+    
+    <strong>
+        <%=post.content%>
+    </strong>
+    <small>
+        By <%=post.user.name%>
+    </small>
+    &emsp;&emsp;
+    <%if (locals.user && locals.user.id==post.user.id){%>
+        <small>
+            <a class="delete-post-button" href="/post/delete/<%=post.id%>"><button>Delete</button></a>
+        </small>
+    <%}%>
+
+    <ul id="post-comments-<%=post._id%>">
+        <!-- Comment incertion from front end JS file to avoid reloading of page everytime -->
+        <%for (comm of post.comments){%>
+            <%- include('_Acomment') %>
+        <%}%>
+    </ul>
+
+    <div class="comment-input-container mt-3">
+        <form action="/comment/create-comment" method="post" id="post-<%=post._id%>-comments-form">
+            <input type="text" name="content" placeholder="Comment here..." required>
+            <input type="hidden" name="post" value=<%=post._id%> >
+            <button type="submit">Add Comment</button>
+        </form>
+    </div>
+    <hr>
+</li>

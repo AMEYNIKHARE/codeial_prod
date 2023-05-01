@@ -14,4 +14,15 @@ h2 {
   text-align: center;
 }
 
+#new-post-form{
+  margin: 0 15% 5%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#new-post-form button{
+  width: 5rem;
+  height: 2rem;
+}
 /*# sourceMappingURL=home.css.map */

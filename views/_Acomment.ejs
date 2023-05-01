@@ -1,0 +1,12 @@
+<li id="comment-<%=comm.id%>" style="font-family: Arial, Helvetica, sans-serif;">
+    <%=comm.content%>
+    &emsp;&emsp;&emsp;&emsp;
+    <small> by <%=comm.user.name%> </small>
+    <%if (locals.user && locals.user.id==comm.user.id){%>
+        <small>
+            <a class="delete-comment-button" href="/comment/delete/<%=comm.id%>">
+                <button>Delete</button>
+            </a>
+        </small>
+    <%}%>
+</li>

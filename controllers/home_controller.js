@@ -7,7 +7,7 @@ module.exports.home = function(req, res){
     // res.cookie('UserID' , 'ANIKHARE');
     // res.cookie('Name' , 'Amey Nikhare');
     // const allPost = Post.find({}).populate('user').populate('comments').exec();
-    const allPost = Post.find({}).populate('user').populate({path : 'comments', populate : {path : 'user'}}).exec();
+    const allPost = Post.find({}).sort('-createdAt').populate('user').populate({path : 'comments', populate : {path : 'user'}}).exec();
 
     allPost.then((data)=>{
         const allUser = User.find({}).exec().then((all_users)=>{
