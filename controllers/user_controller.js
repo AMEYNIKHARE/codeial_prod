@@ -1,4 +1,6 @@
 const User = require('../model/user');
+const fs = require('fs');
+const path = require('path');
 
 // renders profile page
 
@@ -93,23 +95,57 @@ module.exports.create_session = function (req, res) {
 }
 
 // Update user details in database
-module.exports.update = function (req, res) {
+module.exports.update = async function (req, res) {
     if (req.params.id == req.user.id) {
-        User.findByIdAndUpdate(req.params.id, req.body).exec();
-        req.flash('success' , 'User details updated successfully');
-        return res.redirect('back');
+        try{
+            let user = await User.findById(req.params.id);
+
+            User.uploadAvatar(req, res, function(err){
+                if(err){
+                    console.log(err);
+                };
+    
+                user.name = req.body.name;
+                user.email = req.body.email;
+    
+                if(req.file){
+                    if(user.avatar){
+                        const fileExist = fs.existsSync(path.join(__dirname , '..' , user.avatar));
+                        if(fileExist){
+                            fs.unlinkSync(path.join(__dirname , '..' , user.avatar));
+                        }
+                    }
+                    user.avatar = User.avatarPath + '/' + req.file.filename;
+                }
+                user.save();
+                req.flash('success' , 'User details updated successfully');
+                return res.redirect('back');
+            });
+        }
+        catch(err){
+            req.flash('error' , err);
+            return res.redirect('back');
+        }
+
     }
     else {
-        const user = User.findById(req.params.id).exec();
+        try{
+            let user = await User.findById(req.params.id);
 
-        user.then((data) => {
-            req.flash('error' , 'You are not Authorized to update details');
-            return res.status(401).send(`You are not Authorized to change details of ${data.name}`);
-        }).catch((err) => {
+            if (user){
+                req.flash('error' , 'You are not Authorized to update details');
+                return res.redirect('back');
+                // return res.status(401).send(`You are not Authorized to change details of ${data.name}`);
+            }
+            else {
+                req.flash('error' , err);
+                console.log('error in fecthing user details from db ', err);
+                return res.redirect('back');
+            };
+        }
+        catch(err){
             req.flash('error' , err);
-            console.log('error in fecthing user details from db ', err);
             return res.redirect('back');
-        });
-        
+        }
     }
 };

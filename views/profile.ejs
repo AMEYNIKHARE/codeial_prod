@@ -3,6 +3,10 @@
     Profile View
 </h1>
 
+<%if(singleUser.avatar){%>
+    <img src="<%=singleUser.avatar%>" alt="Avatar Img" width="100px">
+<%}%>
+
 <p>
     <%=singleUser.name%>
 </p>
@@ -11,12 +15,14 @@
 </p>
 
 <%if (singleUser.id==locals.user.id){%>
-    <form action="/user/update/<%=singleUser.id%>" method="post">
+    <form action="/user/update/<%=singleUser.id%>" method="post" enctype="multipart/form-data">
         <label for="SignUpUserName">Name</label>
         <input type="text" name="name" id="SignUpUserName" value="<%=singleUser.name%>" required>
 
         <label for="SignUpUserEmail">Email</label>
         <input type="email" name="email" id="SignUpUserEmail" value=<%=singleUser.email%> required>
+
+        <input type="file" name="avatar">
 
         <button type="submit" class="btn btn-primary">Update</button>
     </form>

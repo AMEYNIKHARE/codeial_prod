@@ -17,6 +17,9 @@
 
             <div class="d-flex justify-content-end align-items-center">
                 <%if(locals.user){%>
+                    <%if(locals.user.avatar){%>
+                        <img src="<%=locals.user.avatar%>" alt="Avatar Img" width="30px" style="border-radius: 50%;">
+                    <%}%>
                     <div><strong><%=locals.user.name%></strong></div>
                     <a href="/user/sign-out">
                         <button type="button" class="btn btn-primary mx-2">

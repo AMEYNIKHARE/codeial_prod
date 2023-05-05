@@ -28,6 +28,8 @@ app.use(expressLayouts);
 
 // telling server that we are using static file and all are in assets folder
 app.use(express.static('./assets'));
+// To display avatars on profile page
+app.use('/uploads' , express.static('./uploads'));
 // to attach assets to individual redered file.
 app.set('layout extractStyles', true);
 app.set('layout extractScripts', true);
