@@ -13,7 +13,8 @@ const customMware = require('./config/customMware');
 // to use session and passport for authentication
 const session = require('express-session');
 const passport = require('passport');
-const passportLocal = require('./config/passport');
+const passportLocal = require('./config/passport-local-strategy');
+const passportJWT = require('./config/passport-jwt-strategy');
 
 // use mongo to store session cookie permanantly
 const MongoStore = require('connect-mongo');
@@ -65,7 +66,7 @@ app.use(flash());
 app.use(customMware.setFlash);
 
 // we are using separate route folder to handle browser requets (url) hence imported it.
-const route = require('./routes/home_route');
+const route = require('./routes');
 // Using middleware to sent browser request to route folder to handle it
 app.use('/', route); // we can directly use "app.use('/', require('./routes/home_route'));"
 
