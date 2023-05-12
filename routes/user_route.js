@@ -14,4 +14,18 @@ route.post('/update/:id', passport.checkAuthentication, User_controller.update);
 // Here we are using passport middleware to authenticate user when user click on sign-in page
 route.post('/create-session', passport.authenticate('local', { failureRedirect: '/user/sign-in' }), User_controller.create_session);
 
+route.get('/auth/google',
+  passport.authenticate('google', { scope:
+      [ 'email', 'profile' ] })
+);
+
+route.get( '/auth/google/callback',
+    passport.authenticate( 'google', {
+        failureRedirect: '/user/sign-in'
+        }),
+    User_controller.create_session
+);
+
+
+
 module.exports = route;
