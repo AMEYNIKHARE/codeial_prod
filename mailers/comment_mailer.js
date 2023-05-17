@@ -4,7 +4,7 @@ exports.newComment = (comment)=>{
     nodemailer.transporter.sendMail({
         from : 'anikhare99@gmail.com',
         to : comment.user.email,
-        subject : 'Your Comment Published!',
+        subject : 'Comment Published!',
         html : nodemailer.renderTemplate({comment : comment} , '/comments/new_comment.ejs')
     }, (err, info) =>{
         if(err){
@@ -12,7 +12,7 @@ exports.newComment = (comment)=>{
             return;
         };
 
-        console.log('message sent ', info);
+        // console.log('message sent ', info);
         return;
     });
 };
