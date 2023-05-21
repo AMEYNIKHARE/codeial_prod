@@ -22,20 +22,40 @@
         </div>
     </section>
 
-
-    <section id="friend-container">
+    <div id="friends">
         <h4>Friends</h4>
-        <%for(let user of users){%>
-            <%if(user.id !=locals.user.id){%>
-                <a href="/user/profile/<%=user.id%>">
-                    <p>
-                        <%=user.name%>
-                    </p>
-                </a>
+        <section id="friend-container">
+            <%for(let friend of friends){%>
+                <%if(friend.from_user.id != locals.user.id){%>
+                    <a href="/user/profile/<%=friend.from_user.id%>">
+                        <p>
+                            <%=friend.from_user.name%>
+                        </p>
+                    </a>
+                <%}%>
+                <%if(friend.to_user.id != locals.user.id){%>
+                    <a href="/user/profile/<%=friend.to_user.id%>">
+                        <p>
+                            <%=friend.to_user.name%>
+                        </p>
+                    </a>
+                <%}%>
             <%}%>
+        </section>
 
-        <%}%>
-    </section>
+        <h4>Users</h4>
+        <section id="all-users"> 
+            <%for(let user of users){%>
+                <%if(user.id != locals.user.id){%>
+                    <a href="/user/profile/<%=user.id%>">
+                        <p>
+                            <%=user.name%>
+                        </p>
+                    </a>
+                <%}%>
+            <%}%>
+        </section>
+    </div>
 
 </div>
 

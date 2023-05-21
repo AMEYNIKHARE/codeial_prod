@@ -8,6 +8,8 @@ routes.get('/', homeController.default);
 routes.use('/user', require('./user_route'));
 routes.use('/post', require('./post_route'));
 routes.use('/comment', require('./comment_route'));
+routes.use('/like', require('./like'));
 routes.use('/api', require('./api'));
+routes.use('/friend', require('./friend'));
 
 module.exports = routes;

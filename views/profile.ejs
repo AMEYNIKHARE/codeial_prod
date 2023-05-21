@@ -1,18 +1,25 @@
 <link rel="stylesheet" href="/css/profile.css">
-<h1>
-    Profile View
-</h1>
 
-<%if(singleUser.avatar){%>
-    <img src="<%=singleUser.avatar%>" alt="Avatar Img" width="100px">
-<%}%>
+<div id="user-details">
+    <%if(singleUser.avatar){%>
+        <img src="<%=singleUser.avatar%>" alt="Avatar Img" width="120px" height="120px" style="border-radius: 50%;">
+    <%}%>
+    
+    <p>
+        <strong><%=singleUser.name%></strong>
+    </p>
+    <p>
+        <strong><%=singleUser.email%></strong>
+    </p>
+    <%if (singleUser.id != locals.user.id){%>
+        <%if(isFriend){%>
+            <a href="/friend/remove/<%=singleUser.id%>"><button type="button" class="btn btn-primary">Remove Friend</button></a>
+        <%}else{%> 
+            <a href="/friend/add/<%=singleUser.id%>"><button type="button" class="btn btn-primary">Add Friend</button></a>
+        <%}%>
+    <%}%>
+</div>
 
-<p>
-    <%=singleUser.name%>
-</p>
-<p>
-    <%=singleUser.email%>
-</p>
 
 <%if (singleUser.id==locals.user.id){%>
     <form action="/user/update/<%=singleUser.id%>" method="post" enctype="multipart/form-data">

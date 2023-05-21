@@ -1,28 +1,32 @@
 const Post = require('../model/post');
 const User = require('../model/user');
+const Like = require('../model/like');
+const Frinendship = require('../model/friendship');
 
 // renders home page
-module.exports.home = function(req, res){
+module.exports.home = async function(req, res){
     // console.log(req.cookies);
     // res.cookie('UserID' , 'ANIKHARE');
     // res.cookie('Name' , 'Amey Nikhare');
     // const allPost = Post.find({}).populate('user').populate('comments').exec();
-    const allPost = Post.find({}).sort('-createdAt').populate('user').populate({path : 'comments', populate : {path : 'user'}}).exec();
-
-    allPost.then((data)=>{
-        const allUser = User.find({}).exec().then((all_users)=>{
-            return res.render('home' , {posts : data, users : all_users});
-        }).catch((error)=>{
-            req.flash('error' , error);
-            console.log('error in fetching all users ', error);
-            return res.render('home' , {posts : data});
-        });
-        
-    }).catch((err)=>{
+    
+    try{
+        const allPost = await Post.find({}).sort('-createdAt').populate('user').populate('likes').populate({path : 'comments', populate : {path : 'user'}});
+        if(allPost){
+            const allUser = await User.find({});
+            const currentUser = await User.findById(req.user._id).populate(
+                {path : 'friends' , 
+                populate : {path : 'from_user to_user'}
+            });
+            console.log(currentUser);
+            return res.render('home' , {posts : allPost, users : allUser, friends : currentUser.friends});        
+        }
+    }   
+    catch(err){
         req.flash('error' , err);
         console.log('error in rendering home page ' , err);
         return;
-    });
+    };
     
 }
 

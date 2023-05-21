@@ -1,7 +1,9 @@
 <li id="comment-<%=comm.id%>" style="font-family: Arial, Helvetica, sans-serif;">
     <%=comm.content%>
     &emsp;&emsp;&emsp;&emsp;
-    <small> by <%=comm.user.name%> </small>
+    <small style="font-style: italic;"> 
+        by <%=comm.user.name%> 
+    </small>
     <%if (locals.user && locals.user.id==comm.user.id){%>
         <small>
             <a class="delete-comment-button" href="/comment/delete/<%=comm.id%>">
@@ -9,4 +11,11 @@
             </a>
         </small>
     <%}%>
+
+    <div class="d-flex align-items-center justify-content-between" style="width: 12%;">
+        <i class="fa-solid fa-heart" style="color: #ff0000;"></i>
+        <p class="m-1" id="like-of-<%=comm.id%>"><%=comm.likes.length%></p>
+        <a class="like-button" href="/like/toggle/?id=<%=comm.id%>&type=comment"><button>Like</button></a>
+    </div>
+
 </li>

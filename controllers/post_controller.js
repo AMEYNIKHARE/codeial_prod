@@ -1,6 +1,7 @@
 const Post = require('../model/post');
 const Comment = require('../model/comment');
 const User = require('../model/user');
+const Like = require('../model/like');
 
 module.exports.create_post = async function(req, res){
     try{
@@ -32,12 +33,15 @@ module.exports.create_post = async function(req, res){
     }
 };
 
-module.exports.delete_post = function(req, res){
-    
-    Post.findById(req.params.id).exec().then((data)=>{
-        if(data){
-            Post.findByIdAndRemove(req.params.id).exec();
-            Comment.deleteMany({post : req.params.id}).exec();
+module.exports.delete_post = async function(req, res){
+    try{
+        const post = await Post.findById(req.params.id);
+        if(post){
+            await Like.deleteMany({onModel : 'post' , likeable : req.params.id});
+            await Like.deleteMany({likeable : {$in : post.comments}});
+            await Comment.deleteMany({post : req.params.id});
+            await Post.findByIdAndRemove(req.params.id);
+
             if(req.xhr){
                 return res.status(200).json({
                     data : {
@@ -50,16 +54,15 @@ module.exports.delete_post = function(req, res){
             return res.redirect('back');
         }
         else{
-            req.flash('error' , 'Post Not Found');
+            req.flash('error' , 'post not found');
             return res.redirect('back');
         }
-    }).catch((err)=>{
+    }catch(err){
         if(err){
             req.flash('error' , err);
             console.log('error in finding post while deleting it ', err)
             return res.redirect('back');
         }
-    });
+    };
 
- 
 };

@@ -3,7 +3,7 @@
     <strong>
         <%=post.content%>
     </strong>
-    <small>
+    <small style="font-style: italic;">
         By <%=post.user.name%>
     </small>
     &emsp;&emsp;
@@ -12,6 +12,12 @@
             <a class="delete-post-button" href="/post/delete/<%=post.id%>"><button>Delete</button></a>
         </small>
     <%}%>
+
+    <div class="d-flex align-items-center justify-content-between" style="width: 12%;">
+        <i class="fa-solid fa-heart" style="color: #ff0000;"></i>
+        <p class="m-1" id="like-of-<%=post.id%>"><%=post.likes.length%></p>
+        <a class="like-button" href="/like/toggle/?id=<%=post.id%>&type=post"><button>Like</button></a>
+    </div>
 
     <ul id="post-comments-<%=post._id%>">
         <!-- Comment incertion from front end JS file to avoid reloading of page everytime -->

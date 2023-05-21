@@ -1,13 +1,49 @@
 #home-container {
   display: flex;
+  height: 75vh;
+  /* border: 2px solid black; */
 }
+
 #home-container #post-container {
-  width: 70%;
+  height: auto;
+  width: 80%;
   padding: 15px;
+  /* border: 2px solid purple; */
+  overflow: scroll;
 }
+
+#home-container #post-container::-webkit-scrollbar {
+  display: none;
+}
+
+#home-container #friends{
+  height: 100%;
+  width: 20%;
+  /* border: 2px solid red; */
+}
+
 #home-container #friend-container {
-  width: 30%;
+  height: 40%;
+  width: 90%;
   padding: 15px;
+  /* border: 2px solid red; */
+  overflow: scroll;
+}
+
+#home-container #friend-container::-webkit-scrollbar {
+  display: none;
+}
+
+#home-container #all-users {
+  height: 40%;
+  width: 90%;
+  padding: 15px;
+  /* border: 2px solid red; */
+  overflow: scroll;
+}
+
+#home-container #all-users::-webkit-scrollbar {
+  display: none;
 }
 
 h2 {
@@ -24,5 +60,25 @@ h2 {
 #new-post-form button{
   width: 5rem;
   height: 2rem;
+}
+
+#home-container button {
+  border-radius: 10px;
+  background-color: antiquewhite;
+  font-style: italic;
+}
+
+#home-container textarea{
+  border-radius: 5px;
+}
+
+#home-container input{
+  border-radius: 10px;
+}
+
+#friends a{
+  color : black;
+  text-decoration: none;
+  font-style: italic;
 }
 /*# sourceMappingURL=home.css.map */

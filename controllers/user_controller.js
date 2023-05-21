@@ -1,34 +1,42 @@
 const User = require('../model/user');
+const Frinendship = require('../model/friendship');
 const fs = require('fs');
 const path = require('path');
 
 // renders profile page
 
-module.exports.Myprofile = function (req, res) {
-
-    const user = User.findById(req.user.id).exec();
-
-    user.then((data) => {
-        return res.render('profile', { singleUser: data });
-    }).catch((err) => {
+module.exports.Myprofile = async function (req, res) {
+    try{
+        const user = await User.findById(req.user.id);
+        if(user) {
+            return res.render('profile', { singleUser: user });
+        }
+    }catch(err){
         req.flash('error' , err);
         console.log('error in fecthing user details from db ', err);
         return res.redirect('back');
-    });
+    };
 }
 
 
-module.exports.profile = function (req, res) {
-
-    const user = User.findById(req.params.id).exec();
-
-    user.then((data) => {
-        return res.render('profile', { singleUser: data });
-    }).catch((err) => {
-        req.flash('error' , err);
-        console.log('error in fecthing user details from db ', err);
-        return res.redirect('back');
-    });
+module.exports.profile = async function (req, res) {
+    try{
+        const user = await User.findById(req.params.id);
+        const existingfriendship1 = await Frinendship.findOne({from_user : req.params.id , to_user : req.user.id})
+        const existingfriendship2 = await Frinendship.findOne({from_user : req.user.id , to_user : req.params.id})
+        let existingfriendship = false;
+        if(existingfriendship1 || existingfriendship2){
+            existingfriendship = true;
+        }
+        if(user){
+            return res.render('profile', { singleUser: user , isFriend : existingfriendship });
+        }
+    }
+    catch(err){
+            req.flash('error' , err);
+            console.log('error in fecthing user details from db ', err);
+            return res.redirect('back');
+    };
 }
 
 // renders sign in page

@@ -11,10 +11,11 @@
                 url : '/post/create-post',
                 data : postForm.serialize(),
                 success : function(data){
-                    let newPost = displayPost(data.data.post);
-                    $('#post-list-container>ul').prepend(newPost);                  
+                    let newPost = newPostDom(data.data.post);
+                    $('#post-list-container>ul').prepend(newPost);             
                     let deleteButton = $(' .delete-post-button', newPost);
                     deletePost(deleteButton);
+                    toggleLike($(' .like-button', newPost));
 
                     // call the create comment class
                     // new PostComments(data.data.post._id);
@@ -38,20 +39,26 @@
     };
 
 
-    let displayPost = function(post){
+    let newPostDom = function(post){
         return $(`
         <li id="post-${post._id}" >
 
             <strong>
                 ${post.content}
             </strong>
-            <small>
+            <small style="font-style: italic;">
                 By ${post.user.name}
             </small>
             &emsp;&emsp;
             <small>
                 <a class="delete-post-button" href="/post/delete/${post._id}"><button>Delete</button></a>
             </small>
+
+            <div class="d-flex align-items-center justify-content-between" style="width: 12%;">
+                <i class="fa-solid fa-heart" style="color: #ff0000;"></i>
+                <p class="m-1" id="like-of-${post._id}">0</p>
+                <a class="like-button" href="/like/toggle/?id=${post._id}&type=post"><button>Like</button></a>
+            </div>
 
             <ul id="post-comments-${post._id}">
             </ul>
@@ -112,7 +119,8 @@
                     let newComment = newCommentDom(data.data.comment);
                     $(`#post-comments-${postId}`).prepend(newComment);
                     deleteComment($(' .delete-comment-button', newComment));
-
+                    toggleLike($(' .like-button', newComment));
+                    
                     new Noty({
                         theme: 'relax',
                         text: "Comment Published!",
@@ -135,12 +143,17 @@
         <li id="comment-${comment._id}" style="font-family: Arial, Helvetica, sans-serif;">
             ${comment.content}
             &emsp;&emsp;&emsp;&emsp;
-            <small> by ${comment.user.name} </small>
+            <small style="font-style: italic;"> by ${comment.user.name} </small>
             <small>
                 <a class="delete-comment-button" href="/comment/delete/${comment._id}">
                     <button>Delete</button>
                 </a>
             </small>
+            <div class="d-flex align-items-center justify-content-between" style="width: 12%;">
+                <i class="fa-solid fa-heart" style="color: #ff0000;"></i>
+                <p class="m-1" id="like-of-${comment._id}">0</p>
+                <a class="like-button" href="/like/toggle/?id=${comment._id}&type=comment"><button>Like</button></a>
+            </div>
         </li>
         `);
     };
@@ -187,10 +200,33 @@
             $(' .delete-comment-button', self).each(function(){
                 deleteComment($(this));
             });
+            $(' .like-button', self).each(function(){
+                toggleLike($(this));
+            });
             
         });
     };
 
+
+    let toggleLike = function(toggleLikeLink){
+        $(toggleLikeLink).click(function(e){
+            e.preventDefault();
+
+            $.ajax({
+                type: 'get',
+                url: $(toggleLikeLink).prop('href'),
+                success: function(data){
+                    // var likedElement = document.getElementById(`like-of-${data.data.likeable._id}`);
+                    // likedElement.innerText = data.data.likeable.likes.length;
+                    $(`#like-of-${data.data.likeable._id}`).text(data.data.likeable.likes.length);
+                },
+                error: function(error){
+                    console.log(error.responseText);
+                }
+            });
+
+        });
+    }
 
     createPost();
     convertPostsToAjax();
