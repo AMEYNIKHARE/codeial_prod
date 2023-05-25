@@ -202,9 +202,11 @@
             });
             $(' .like-button', self).each(function(){
                 toggleLike($(this));
-            });
-            
+            });  
         });
+        // additional thing for chat bot
+        var chatWindow = document.getElementById('chatWindow');
+        chatWindow.style.display = 'none';
     };
 
 
@@ -228,6 +230,16 @@
         });
     }
 
+
+    document.getElementById('chatIcon').addEventListener('click', function() {
+        var chatWindow = document.getElementById('chatWindow');
+        if (chatWindow.style.display == 'none') {
+            chatWindow.style.display = 'block';
+        } else {
+            chatWindow.style.display = 'none';
+        }
+    });
+    
     createPost();
     convertPostsToAjax();
 }

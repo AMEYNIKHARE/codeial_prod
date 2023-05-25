@@ -1,6 +1,7 @@
 const express = require('express');
 const port = 8000;
 const app = express();
+
 const db = require('./config/mongoose');
 const cookieParser = require('cookie-parser');
 // set-up cookie parser
@@ -41,6 +42,15 @@ app.set('layout extractScripts', true);
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
+// settinng up chatting engine
+const cors = require('cors');
+app.use(cors({
+    origin: "*",
+}));
+const chatServer = require('http').Server(app);
+chatServer.listen(5000);
+const chatSocket = require('./config/chat_socket').chatsockets(chatServer);
+
 app.use(session({
     name: 'codeial',
     secret: 'anythingForNow',
@@ -77,5 +87,5 @@ app.listen(port, function (err) {
         console.log(`Error while starting the server : ${err}`);
     }
 
-    console.log(`Server is running on port : ${port}`);
+    console.log(`Express Server is running on port : ${port}`);
 })

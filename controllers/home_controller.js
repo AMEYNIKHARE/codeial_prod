@@ -18,7 +18,7 @@ module.exports.home = async function(req, res){
                 {path : 'friends' , 
                 populate : {path : 'from_user to_user'}
             });
-            console.log(currentUser);
+            // console.log(currentUser);
             return res.render('home' , {posts : allPost, users : allUser, friends : currentUser.friends});        
         }
     }   
