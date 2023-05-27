@@ -1,17 +1,156 @@
-#home-container{
+#home-container {
     display: flex;
+    height: 75vh;
+    /* border: 2px solid black; */
+  }
+  
+  #home-container #post-container {
+    height: auto;
+    width: 80%;
+    padding: 15px;
+    /* border: 2px solid purple; */
+    overflow: scroll;
+  }
+  
+  #home-container #post-container::-webkit-scrollbar {
+    display: none;
+  }
+  
+  #home-container #friends{
+    height: 100%;
+    width: 20%;
+    /* border: 2px solid red; */
+  }
+  
+  #home-container #friend-container {
+    height: 40%;
+    width: 90%;
+    padding: 15px;
+    /* border: 2px solid red; */
+    overflow: scroll;
+  }
+  
+  #home-container #friend-container::-webkit-scrollbar {
+    display: none;
+  }
+  
+  #home-container #all-users {
+    height: 40%;
+    width: 90%;
+    padding: 15px;
+    /* border: 2px solid red; */
+    overflow: scroll;
+  }
+  
+  #home-container #all-users::-webkit-scrollbar {
+    display: none;
+  }
+  
+  h2 {
+    text-align: center;
+  }
+  
+  #new-post-form{
+    margin: 0 15% 5%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  
+  #new-post-form button{
+    width: 5rem;
+    height: 2rem;
+  }
+  
+  #home-container button {
+    border-radius: 10px;
+    background-color: antiquewhite;
+    font-style: italic;
+  }
+  
+  #home-container textarea{
+    border-radius: 5px;
+  }
+  
+  #home-container input{
+    border-radius: 10px;
+  }
+  
+  #friends a{
+    color : black;
+    text-decoration: none;
+    font-style: italic;
+  }
+  
+  .chat-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 9999;
+  }
+  
+  .chat-window {
+    position: fixed;
+    bottom: 75px;
+    right: 20px;
+    width: 250px;
+    height: 250px;
+    background-color: #fff;
+    border: 1px solid black;
+    box-shadow: 0 0 3px 1px black;
+    border-radius: 5px;
+    z-index: 9998;
+    display: none;
+    
+  }
+  #chats{
+    width: 100%;
+    height: 85%;
+    overflow: scroll;
+  }
+  
+  #chats::-webkit-scrollbar {
+    display: none;
+  }
+  
+  #chat-input input{
+    width: 75%;
+    margin-left: 2px;
+    margin-top: 5px;
+  }
+  
+  #chat-input button{
+    width: 20%;
+    padding: 0%;
+    border-radius: 5px;
+    background-color: rgb(0, 255, 0);
+    border: none;
+  
+  }
+  
+  .user-chat{
+    padding: 2px;
+    margin: 5px;
+    max-width: 75%;
+    float: right;
+    overflow-wrap:break-word;  
+    border-radius: 5px;
+    background-color: aqua;
+    box-shadow: 0 0 3px 2px black;
+  }
+  
+  .other-user-chat{
+    padding: 2px;
+    margin: 5px;
+    width: 75%;
+    display: inline-block;
+    border-radius: 5px;
+    background-color: rgb(0, 255, 72);
+    box-shadow: 0 0 3px 2px black;
+  }
 
-       #post-container{
-        width: 70%;
-        padding: 15px;
-    }
-
-    #friend-container{
-        width: 30%;
-        padding: 15px;
-    }
-}
-
-h2{
-    text-align: center; 
-}
+  

@@ -1,29 +1,25 @@
-#user-details{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 1%;
+#user-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1%;
 }
 
-form input{
-    border-radius: 5px;
-    border: 2px solid black;
-    margin-bottom: 1rem;
+form input {
+  border-radius: 5px;
+  border: 2px solid black;
+  margin-bottom: 1rem;
 }
 
-form label{
-    font-weight: 700;
+form label {
+  font-weight: 700;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
-    width: 40%;
-    margin: auto;
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  margin: auto;
 }
 
-
- /*# sourceMappingURL=home.css.map */
-
-
- /*# sourceMappingURL=profile.css.map */
+/*# sourceMappingURL=profile.css.map */

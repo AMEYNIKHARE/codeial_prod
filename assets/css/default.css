@@ -1,41 +1,39 @@
-#welcome-text{
-    height: 86vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-image: url('../images/dfg.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
+#welcome-text {
+  height: 86vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url("../images/dfg.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
 
-#welcome-text h1{
-    /* border: 2px solid red; */
-    animation: flash 1s linear infinite;
+#welcome-text h1 {
+  /* border: 2px solid red; */
+  animation: flash 1s linear infinite;
 }
 
 @keyframes flash {
-    0% {
-        color: white;
-        scale: 1;
-    }
-
-    25% {
-        color: blueviolet;
-    }
-
-    50% {
-        color: rgb(119, 0, 119);
-        scale: 1.15;
-    }
-
-    75%{
-        color: blueviolet;
-    }
-
-    100%{
-        color: white;
-        scale: 1;
-    }
+  0% {
+    color: white;
+    scale: 1;
+  }
+  25% {
+    color: blueviolet;
+  }
+  50% {
+    color: rgb(119, 0, 119);
+    scale: 1.15;
+  }
+  75% {
+    color: blueviolet;
+  }
+  100% {
+    color: white;
+    scale: 1;
+  }
 }
+
+/*# sourceMappingURL=default.css.map */

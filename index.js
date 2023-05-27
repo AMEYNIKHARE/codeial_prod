@@ -1,7 +1,9 @@
 const express = require('express');
 const port = 8000;
 const app = express();
-
+const env = require('./config/environment');
+const logger = require('morgan');
+app.use(logger(env.morgan.mode , env.morgan.options));
 const db = require('./config/mongoose');
 const cookieParser = require('cookie-parser');
 // set-up cookie parser
@@ -30,7 +32,7 @@ const expressLayouts = require('express-ejs-layouts');
 app.use(expressLayouts);
 
 // telling server that we are using static file and all are in assets folder
-app.use(express.static('./assets'));
+app.use(express.static(env.asset_path));
 // To display avatars on profile page
 app.use('/uploads' , express.static('./uploads'));
 // to attach assets to individual redered file.
@@ -53,7 +55,7 @@ const chatSocket = require('./config/chat_socket').chatsockets(chatServer);
 
 app.use(session({
     name: 'codeial',
-    secret: 'anythingForNow',
+    secret: env.session_cookie_key,
     resave: false,
     saveUninitialized: false,
     cookie: {

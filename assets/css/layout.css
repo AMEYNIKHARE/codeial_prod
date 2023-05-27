@@ -1,6 +1,6 @@
 body {
   /* background-color: rgb(25, 207, 131); */
-  background-image: url('../images/svg.png');
+  background-image: url("../images/svg.png");
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
