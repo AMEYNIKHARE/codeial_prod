@@ -1,6 +1,7 @@
 const express = require('express');
 const port = 8000;
 const app = express();
+require('./config/view-helper')(app);
 const env = require('./config/environment');
 const logger = require('morgan');
 app.use(logger(env.morgan.mode , env.morgan.options));
@@ -33,6 +34,7 @@ app.use(expressLayouts);
 
 // telling server that we are using static file and all are in assets folder
 app.use(express.static(env.asset_path));
+// app.use(express.static('./public/assets'));
 // To display avatars on profile page
 app.use('/uploads' , express.static('./uploads'));
 // to attach assets to individual redered file.
