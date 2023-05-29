@@ -51,9 +51,9 @@ const cors = require('cors');
 app.use(cors({
     origin: "*",
 }));
-const chatServer = require('http').Server(app);
-chatServer.listen(5000);
+const chatServer = require('http').createServer(app);
 const chatSocket = require('./config/chat_socket').chatsockets(chatServer);
+chatServer.listen(3000);
 
 app.use(session({
     name: 'codeial',
